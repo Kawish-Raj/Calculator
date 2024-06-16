@@ -31,3 +31,19 @@ function operate(var1, operator, var2) {
         returnVal = divide(var1, var2);
     }
 }
+
+function updateDisplay(){
+
+}
+
+const display = document.querySelector("div.display");
+const num_buttons_list = document.querySelectorAll("button.number");
+
+num_buttons_list.forEach(num => {
+    num.addEventListener("click", function(){
+        display.textContent = this.textContent;
+    })
+})
+
+
+
