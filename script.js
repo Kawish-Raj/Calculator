@@ -57,20 +57,27 @@ num_buttons_list.forEach(num => {
 
 operator_buttons_list.forEach(operator_node => {
     operator_node.addEventListener("click", function() {
-        if(!operator_exist){
+        if(!operator_exist && !(this.textContent === "=")){
             display.textContent = display.textContent + this.textContent;
             operator_exist = true;
             operator = this.textContent;
         }
         else if (var2 !== ""){
             var result = operate(parseInt(var1),operator,parseInt(var2));
-            display.textContent = result.toString() + this.textContent;
+            if(this.textContent === "="){
+                display.textContent = result.toString();
+                operator_exist = false;
+            }
+            else {
+                display.textContent = result.toString() + this.textContent;
+                operator = this.textContent;
+            }
             var1 = result.toString();
             var2 = "";
-            operator = this.textContent;
         }
     })
 })
+
 
 
 
