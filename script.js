@@ -47,6 +47,9 @@ const del_button = document.querySelector("button#delete");
 
 num_buttons_list.forEach(num => {
     num.addEventListener("click", function(){
+        if(display.textContent === "Sorry Can't Divide by Zero") {
+            display.textContent = "";
+        }
         display.textContent = display.textContent + this.textContent;
         if (!operator_exist){
             var1 = var1 + this.textContent;
@@ -59,22 +62,29 @@ num_buttons_list.forEach(num => {
 
 operator_buttons_list.forEach(operator_node => {
     operator_node.addEventListener("click", function() {
-        if(!operator_exist && !(this.textContent === "=")){
+        if(!operator_exist && !(this.textContent === "=")&& var1 != ""){
             display.textContent = display.textContent + this.textContent;
             operator_exist = true;
             operator = this.textContent;
         }
         else if (var2 !== ""){
+            var infi = 5/0;
             var result = operate(parseInt(var1),operator,parseInt(var2));
-            if(this.textContent === "="){
+            if (result === infi.toString()) {
+                display.textContent = "Sorry Can't Divide by Zero";
+                var1 = "";
+                operator_exist = false;
+            }
+            else if(this.textContent === "="){
                 display.textContent = result.toString();
                 operator_exist = false;
+                var1 = result.toString();
             }
             else {
                 display.textContent = result.toString() + this.textContent;
                 operator = this.textContent;
+                var1 = result.toString();
             }
-            var1 = result.toString();
             var2 = "";
         }
     })
@@ -89,7 +99,10 @@ clear_button.addEventListener("click", function() {
 })
 
 del_button.addEventListener("click", function () {
-    if (display.textContent !== "") {
+    if(display.textContent === "Sorry Can't Divide by Zero") {
+        display.textContent = "";
+    }
+    else if (display.textContent !== "") {
         display.textContent = display.textContent.slice(0,-1);
         if (operator_exist && var2 !== "") {
             var2 = var2.slice(0,-1);
