@@ -42,6 +42,8 @@ var operator_exist = false;
 const display = document.querySelector("div.display");
 const num_buttons_list = document.querySelectorAll("button.number");
 const operator_buttons_list = document.querySelectorAll("button.operator");
+const clear_button = document.querySelector("button#clear");
+const del_button = document.querySelector("button#delete");
 
 num_buttons_list.forEach(num => {
     num.addEventListener("click", function(){
@@ -78,6 +80,29 @@ operator_buttons_list.forEach(operator_node => {
     })
 })
 
+clear_button.addEventListener("click", function() {
+    display.textContent = "";
+    var1 = "";
+    var2 = "";
+    operator = "";
+    operator_exist = false;
+})
+
+del_button.addEventListener("click", function () {
+    if (display.textContent !== "") {
+        display.textContent = display.textContent.slice(0,-1);
+        if (operator_exist && var2 !== "") {
+            var2 = var2.slice(0,-1);
+        }
+        else if (operator_exist){
+            operator = "";
+            operator_exist = false;
+        }
+        else{
+            var1 = var1.slice(0,-1);
+        }
+    }
+})
 
 
 
